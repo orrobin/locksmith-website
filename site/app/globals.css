@@ -1,0 +1,85 @@
+@import "tailwindcss";
+
+@theme {
+  /* Brand palette — deep navy + amber CTA + accessible WhatsApp green */
+  --color-navy-50: #f1f7fc;
+  --color-navy-100: #dce9f5;
+  --color-navy-200: #b9d3ea;
+  --color-navy-700: #1a4e80;
+  --color-navy-800: #123b63;
+  --color-navy-900: #0b2540;
+  --color-navy-950: #081b30;
+  --color-accent-400: #ffc233;
+  --color-accent-500: #ffb300;
+  --color-accent-600: #e69c00;
+  --color-wa-600: #128c7e;
+  --color-wa-700: #0e7365;
+  --color-danger-600: #d92d20;
+  --color-danger-700: #b42318;
+  --font-sans: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .animate-pulse-cta {
+    animation: none;
+  }
+}
+
+body {
+  background: #fff;
+  color: var(--color-slate-800, #1e293b);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  /* Reserve space for the sticky mobile CTA bar (CLS guard) */
+  padding-bottom: calc(4rem + env(safe-area-inset-bottom));
+}
+
+@media (min-width: 768px) {
+  body {
+    padding-bottom: 0;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent-500);
+  outline-offset: 2px;
+}
+
+/* Subtle attention pulse on primary CTAs (docs/01 §5.10) */
+@keyframes pulse-cta {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgb(255 179 0 / 0.45);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgb(255 179 0 / 0);
+  }
+}
+.animate-pulse-cta {
+  animation: pulse-cta 2s ease-in-out infinite;
+}
+
+details.faq > summary {
+  list-style: none;
+  cursor: pointer;
+}
+details.faq > summary::-webkit-details-marker {
+  display: none;
+}
+details.faq > summary::after {
+  content: "+";
+  float: right;
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--color-navy-700);
+}
+details.faq[open] > summary::after {
+  content: "–";
+}
